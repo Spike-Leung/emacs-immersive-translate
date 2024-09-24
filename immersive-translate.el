@@ -123,6 +123,12 @@ string. It should return the transformed string."
   :group 'immersive-translate
   :type 'directory)
 
+(defface immersive-translate-face
+  '((t (:inherit font-lock-comment-face)))
+  "Face for translated text with customizable color, defaulting to the comment color."
+  :group 'immersive-translate)
+
+
 (defun immersive-translate--gptel-filter-result (str)
   (replace-regexp-in-string "```" "" str))
 
@@ -433,7 +439,7 @@ The value of after-string is RESPONSE."
           ovs)
     (overlay-put new-ov
                  'after-string
-                 response)
+                 (propertize response 'face 'immersive-translate-face))
     (push new-ov immersive-translate--translation-overlays)))
 
 (defun immersive-translate-callback (response info)
